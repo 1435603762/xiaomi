@@ -35,15 +35,15 @@ import org.json.JSONObject;
 public class Task extends Node {
     private static final String TAG = Task.class.getSimpleName();
 
-    private boolean mCompleted;//±íÊ¾ÈÎÎñÊÇ·ñÍê³É
+    private boolean mCompleted;//è¡¨ç¤ºä»»åŠ¡æ˜¯å¦å®Œæˆ
 
-    private String mNotes;//±íÊ¾ÈÎÎñ±¸×¢µÄ×Ö·û´®
+    private String mNotes;//è¡¨ç¤ºä»»åŠ¡å¤‡æ³¨çš„å­—ç¬¦ä¸²
 
-    private JSONObject mMetaInfo;//±íÊ¾ÈÎÎñÔªĞÅÏ¢µÄJSONObject¶ÔÏó
+    private JSONObject mMetaInfo;//è¡¨ç¤ºä»»åŠ¡å…ƒä¿¡æ¯çš„JSONObjectå¯¹è±¡
 
-    private Task mPriorSibling;//±íÊ¾ÈÎÎñÇ°Ò»¸öĞÖµÜÈÎÎñµÄTask¶ÔÏó
+    private Task mPriorSibling;//è¡¨ç¤ºä»»åŠ¡å‰ä¸€ä¸ªå…„å¼Ÿä»»åŠ¡çš„Taskå¯¹è±¡
 
-    private TaskList mParent;//±íÊ¾ÈÎÎñËùÊôÈÎÎñÁĞ±íµÄTaskList¶ÔÏó
+    private TaskList mParent;//è¡¨ç¤ºä»»åŠ¡æ‰€å±ä»»åŠ¡åˆ—è¡¨çš„TaskListå¯¹è±¡
 
     public Task() {
         super();
@@ -52,23 +52,23 @@ public class Task extends Node {
         mPriorSibling = null;
         mParent = null;
         mMetaInfo = null;
-    }//³õÊ¼»¯
+    }//åˆå§‹åŒ–
 
     public JSONObject getCreateAction(int actionId) {
         JSONObject js = new JSONObject();
 
         try {
-            // action_type ±íÊ¾¶¯×÷ÀàĞÍÎª¡°´´½¨¡±
+            // action_type è¡¨ç¤ºåŠ¨ä½œç±»å‹ä¸ºâ€œåˆ›å»ºâ€
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_TYPE,
                     GTaskStringUtils.GTASK_JSON_ACTION_TYPE_CREATE);
 
-            // action_id ±íÊ¾¸Ã¶¯×÷ID
+            // action_id è¡¨ç¤ºè¯¥åŠ¨ä½œID
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_ID, actionId);
 
-            // index ±íÊ¾TaskÔÚËùÊôTaskListµÄÎ»ÖÃ
+            // index è¡¨ç¤ºTaskåœ¨æ‰€å±TaskListçš„ä½ç½®
             js.put(GTaskStringUtils.GTASK_JSON_INDEX, mParent.getChildTaskIndex(this));
 
-            // entity_delta ±íÊ¾´´½¨µÄTaskµÄ¾ßÌåĞÅÏ¢£¬°üÀ¨Ãû³Æ£¬´´½¨ÕßID£¬ÀàĞÍ£¬±Ê¼ÇµÈ
+            // entity_delta è¡¨ç¤ºåˆ›å»ºçš„Taskçš„å…·ä½“ä¿¡æ¯ï¼ŒåŒ…æ‹¬åç§°ï¼Œåˆ›å»ºè€…IDï¼Œç±»å‹ï¼Œç¬”è®°ç­‰
             JSONObject entity = new JSONObject();
             entity.put(GTaskStringUtils.GTASK_JSON_NAME, getName());
             entity.put(GTaskStringUtils.GTASK_JSON_CREATOR_ID, "null");
@@ -79,17 +79,17 @@ public class Task extends Node {
             }
             js.put(GTaskStringUtils.GTASK_JSON_ENTITY_DELTA, entity);
 
-            // parent_id ±íÊ¾ËùÊôTaskListµÄID
+            // parent_id è¡¨ç¤ºæ‰€å±TaskListçš„ID
             js.put(GTaskStringUtils.GTASK_JSON_PARENT_ID, mParent.getGid());
 
-            // dest_parent_type ±íÊ¾ËùÊôTaskListµÄÀàĞÍ
+            // dest_parent_type è¡¨ç¤ºæ‰€å±TaskListçš„ç±»å‹
             js.put(GTaskStringUtils.GTASK_JSON_DEST_PARENT_TYPE,
                     GTaskStringUtils.GTASK_JSON_TYPE_GROUP);
 
-            // list_id ±íÊ¾ËùÊôTaskListµÄID
+            // list_id è¡¨ç¤ºæ‰€å±TaskListçš„ID
             js.put(GTaskStringUtils.GTASK_JSON_LIST_ID, mParent.getGid());
 
-            // prior_sibling_id ±íÊ¾ÅÅÔÚ¸ÃTaskÖ®Ç°µÄĞÖµÜTaskµÄID
+            // prior_sibling_id è¡¨ç¤ºæ’åœ¨è¯¥Taskä¹‹å‰çš„å…„å¼ŸTaskçš„ID
             if (mPriorSibling != null) {
                 js.put(GTaskStringUtils.GTASK_JSON_PRIOR_SIBLING_ID, mPriorSibling.getGid());
             }
@@ -101,23 +101,23 @@ public class Task extends Node {
         }
 
         return js;
-    }//·µ»ØJSONObject¶ÔÏó£¬±íÊ¾ÓÃÓÚ´´½¨¸ÃTaskµÄ¶¯×÷
+    }//è¿”å›JSONObjectå¯¹è±¡ï¼Œè¡¨ç¤ºç”¨äºåˆ›å»ºè¯¥Taskçš„åŠ¨ä½œ
 
     public JSONObject getUpdateAction(int actionId) {
         JSONObject js = new JSONObject();
 
         try {
-            // action_type ²Ù×÷ÀàĞÍ£¨¸üĞÂ²Ù×÷£©
+            // action_type æ“ä½œç±»å‹ï¼ˆæ›´æ–°æ“ä½œï¼‰
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_TYPE,
                     GTaskStringUtils.GTASK_JSON_ACTION_TYPE_UPDATE);
 
-            // action_id ²Ù×÷ID
+            // action_id æ“ä½œID
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_ID, actionId);
 
-            // id Òª¸üĞÂµÄÈÎÎñµÄID
+            // id è¦æ›´æ–°çš„ä»»åŠ¡çš„ID
             js.put(GTaskStringUtils.GTASK_JSON_ID, getGid());
 
-            // entity_delta ¸üĞÂµÄÄÚÈİ¡£°üº¬ÁËÈÎÎñµÄÃû³Æ¡¢±¸×¢¡¢ÊÇ·ñÒÑÉ¾³ıµÈĞÅÏ¢¡£
+            // entity_delta æ›´æ–°çš„å†…å®¹ã€‚åŒ…å«äº†ä»»åŠ¡çš„åç§°ã€å¤‡æ³¨ã€æ˜¯å¦å·²åˆ é™¤ç­‰ä¿¡æ¯ã€‚
             JSONObject entity = new JSONObject();
             entity.put(GTaskStringUtils.GTASK_JSON_NAME, getName());
             if (getNotes() != null) {
@@ -133,62 +133,62 @@ public class Task extends Node {
         }
 
         return js;
-    }//·µ»ØJSONObject¶ÔÏó£¬°üº¬¸üĞÂGoogle TaskµÄÏà¹ØÊı¾İ
+    }//è¿”å›JSONObjectå¯¹è±¡ï¼ŒåŒ…å«æ›´æ–°Google Taskçš„ç›¸å…³æ•°æ®
 
     public void setContentByRemoteJSON(JSONObject js) {
         if (js != null){
             try {
-                // id ¼ì²é"JSON"¶ÔÏóÊÇ·ñ°üº¬idÊôĞÔ
+                // id æ£€æŸ¥"JSON"å¯¹è±¡æ˜¯å¦åŒ…å«idå±æ€§
                 if (js.has(GTaskStringUtils.GTASK_JSON_ID)) {
                     setGid(js.getString(GTaskStringUtils.GTASK_JSON_ID));
-                }//Èç¹ûÊÇ£¬Ôò½«ÆäÖµÉèÖÃÎªÈÎÎñ¶ÔÏóµÄgidÊôĞÔ
+                }//å¦‚æœæ˜¯ï¼Œåˆ™å°†å…¶å€¼è®¾ç½®ä¸ºä»»åŠ¡å¯¹è±¡çš„gidå±æ€§
 
-                // last_modified ¼ì²éJSON¶ÔÏóÊÇ·ñ°üº¬last_modifiedÊôĞÔ
+                // last_modified æ£€æŸ¥JSONå¯¹è±¡æ˜¯å¦åŒ…å«last_modifiedå±æ€§
                 if (js.has(GTaskStringUtils.GTASK_JSON_LAST_MODIFIED)) {
                     setLastModified(js.getLong(GTaskStringUtils.GTASK_JSON_LAST_MODIFIED));
-                }//Èç¹ûÊÇ£¬½«ÆäÖµÉèÖÃÎªÈÎÎñ¶ÔÏóµÄlastModifiedÊôĞÔ
+                }//å¦‚æœæ˜¯ï¼Œå°†å…¶å€¼è®¾ç½®ä¸ºä»»åŠ¡å¯¹è±¡çš„lastModifiedå±æ€§
 
-                // name ¼ì²éJSON¶ÔÏóÊÇ·ñ°üº¬nameÊôĞÔ
+                // name æ£€æŸ¥JSONå¯¹è±¡æ˜¯å¦åŒ…å«nameå±æ€§
                 if (js.has(GTaskStringUtils.GTASK_JSON_NAME)) {
                     setName(js.getString(GTaskStringUtils.GTASK_JSON_NAME));
-                }//Èç¹ûÊÇ£¬Ôò½«ÆäÖµÉèÖÃÎªÈÎÎñ¶ÔÏóµÄnameÊôĞÔ
+                }//å¦‚æœæ˜¯ï¼Œåˆ™å°†å…¶å€¼è®¾ç½®ä¸ºä»»åŠ¡å¯¹è±¡çš„nameå±æ€§
 
-                // notes Ëü¼ì²éJSON¶ÔÏóÊÇ·ñ°üº¬notesÊôĞÔ
+                // notes å®ƒæ£€æŸ¥JSONå¯¹è±¡æ˜¯å¦åŒ…å«noteså±æ€§
                 if (js.has(GTaskStringUtils.GTASK_JSON_NOTES)) {
                     setNotes(js.getString(GTaskStringUtils.GTASK_JSON_NOTES));
-                }//Èç¹ûÊÇ£¬Ôò½«ÆäÖµÉèÖÃÎªÈÎÎñ¶ÔÏóµÄnotesÊôĞÔ
+                }//å¦‚æœæ˜¯ï¼Œåˆ™å°†å…¶å€¼è®¾ç½®ä¸ºä»»åŠ¡å¯¹è±¡çš„noteså±æ€§
 
-                // deleted ¼ì²éJSON¶ÔÏóÊÇ·ñ°üº¬deletedÊôĞÔ
+                // deleted æ£€æŸ¥JSONå¯¹è±¡æ˜¯å¦åŒ…å«deletedå±æ€§
                 if (js.has(GTaskStringUtils.GTASK_JSON_DELETED)) {
                     setDeleted(js.getBoolean(GTaskStringUtils.GTASK_JSON_DELETED));
-                }//Èç¹ûÊÇ£¬Ôò½«ÆäÖµÉèÖÃÎªÈÎÎñ¶ÔÏóµÄdeletedÊôĞÔ
+                }//å¦‚æœæ˜¯ï¼Œåˆ™å°†å…¶å€¼è®¾ç½®ä¸ºä»»åŠ¡å¯¹è±¡çš„deletedå±æ€§
 
-                // completed ¼ì²éJSON¶ÔÏóÊÇ·ñ°üº¬completedÊôĞÔ
+                // completed æ£€æŸ¥JSONå¯¹è±¡æ˜¯å¦åŒ…å«completedå±æ€§
                 if (js.has(GTaskStringUtils.GTASK_JSON_COMPLETED)) {
                     setCompleted(js.getBoolean(GTaskStringUtils.GTASK_JSON_COMPLETED));
-                }//Èç¹ûÊÇ£¬Ôò½«ÆäÖµÉèÖÃÎªÈÎÎñ¶ÔÏóµÄcompletedÊôĞÔ
+                }//å¦‚æœæ˜¯ï¼Œåˆ™å°†å…¶å€¼è®¾ç½®ä¸ºä»»åŠ¡å¯¹è±¡çš„completedå±æ€§
             } catch (JSONException e) {
                 Log.e(TAG, e.toString());
                 e.printStackTrace();
-                throw new ActionFailureException("fail to get task content from jsonobject");//Èç¹û½âÎöJSON¶ÔÏóÊ±³öÏÖÒì³££¬½«»áÅ×³öÒ»¸öActionFailureExceptionÒì³£
+                throw new ActionFailureException("fail to get task content from jsonobject");//å¦‚æœè§£æJSONå¯¹è±¡æ—¶å‡ºç°å¼‚å¸¸ï¼Œå°†ä¼šæŠ›å‡ºä¸€ä¸ªActionFailureExceptionå¼‚å¸¸
             }
         }
-    }//´ÓÔ¶³ÌJSON¶ÔÏóÖĞ»ñÈ¡ÈÎÎñµÄ¸÷ÖÖÊôĞÔ²¢½«ÆäÉèÖÃµ½ÈÎÎñ¶ÔÏóÖĞ
+    }//ä»è¿œç¨‹JSONå¯¹è±¡ä¸­è·å–ä»»åŠ¡çš„å„ç§å±æ€§å¹¶å°†å…¶è®¾ç½®åˆ°ä»»åŠ¡å¯¹è±¡ä¸­
 
     public void setContentByLocalJSON(JSONObject js) {
         if (js == null || !js.has(GTaskStringUtils.META_HEAD_NOTE)
                 || !js.has(GTaskStringUtils.META_HEAD_DATA)) {
             Log.w(TAG, "setContentByLocalJSON: nothing is avaiable");
-        }//ÅĞ¶Ï´«ÈëµÄJSONObject¶ÔÏóÊÇ·ñÎª¿ÕÒÔ¼°ÊÇ·ñ°üº¬ËùĞèµÄ¼üÃû,Èç¹û²»°üº¬£¬Ôò´òÓ¡¾¯¸æÈÕÖ¾²¢Ö±½Ó·µ»Ø
+        }//åˆ¤æ–­ä¼ å…¥çš„JSONObjectå¯¹è±¡æ˜¯å¦ä¸ºç©ºä»¥åŠæ˜¯å¦åŒ…å«æ‰€éœ€çš„é”®å,å¦‚æœä¸åŒ…å«ï¼Œåˆ™æ‰“å°è­¦å‘Šæ—¥å¿—å¹¶ç›´æ¥è¿”å›
 
         try {
             JSONObject note = js.getJSONObject(GTaskStringUtils.META_HEAD_NOTE);
             JSONArray dataArray = js.getJSONArray(GTaskStringUtils.META_HEAD_DATA);
-            //´ÓMETA_HEAD_NOTE¼ü¶ÔÓ¦µÄJSON¶ÔÏóÖĞ»ñÈ¡ÀàĞÍ
+            //ä»META_HEAD_NOTEé”®å¯¹åº”çš„JSONå¯¹è±¡ä¸­è·å–ç±»å‹
             if (note.getInt(NoteColumns.TYPE) != Notes.TYPE_NOTE) {
                 Log.e(TAG, "invalid type");
                 return;
-            }//ÀàĞÍ²»ÎªNotes.TYPE_NOTE£¬Ôò´òÓ¡´íÎóÈÕÖ¾²¢·µ»Ø
+            }//ç±»å‹ä¸ä¸ºNotes.TYPE_NOTEï¼Œåˆ™æ‰“å°é”™è¯¯æ—¥å¿—å¹¶è¿”å›
 
             for (int i = 0; i < dataArray.length(); i++) {
                 JSONObject data = dataArray.getJSONObject(i);
@@ -196,23 +196,23 @@ public class Task extends Node {
                     setName(data.getString(DataColumns.CONTENT));
                     break;
                 }
-            }//±éÀúÔªËØ,ÈôMIME_TYPE¼üÖµÎªDataConstants.NOTE£¬½«ÆäCONTENTÉèÖÃÎª¸Ã¶ÔÏóµÄnameÊôĞÔÖµ¡£
+            }//éå†å…ƒç´ ,è‹¥MIME_TYPEé”®å€¼ä¸ºDataConstants.NOTEï¼Œå°†å…¶CONTENTè®¾ç½®ä¸ºè¯¥å¯¹è±¡çš„nameå±æ€§å€¼ã€‚
         } catch (JSONException e) {
             Log.e(TAG, e.toString());
             e.printStackTrace();
         }
-    }//´Ó±¾µØ´æ´¢µÄJSON¶ÔÏóÖĞ¶ÁÈ¡ÄÚÈİ£¬²¢ÉèÖÃµ½¸Ã¶ÔÏóµÄÊôĞÔÖĞ
+    }//ä»æœ¬åœ°å­˜å‚¨çš„JSONå¯¹è±¡ä¸­è¯»å–å†…å®¹ï¼Œå¹¶è®¾ç½®åˆ°è¯¥å¯¹è±¡çš„å±æ€§ä¸­
 
     public JSONObject getLocalJSONFromContent() {
-        String name = getName();//´ÓÈÎÎñ¶ÔÏóÖĞ»ñÈ¡Ãû³Æ£¬¼ì²éÊÇ·ñ´æÔÚ mMetaInfo JSON ¶ÔÏó
+        String name = getName();//ä»ä»»åŠ¡å¯¹è±¡ä¸­è·å–åç§°ï¼Œæ£€æŸ¥æ˜¯å¦å­˜åœ¨ mMetaInfo JSON å¯¹è±¡
         try {
             if (mMetaInfo == null) {
-                // new task created from web ²»´æÔÚ£¬ÔòËµÃ÷ÈÎÎñ¶ÔÏóÊÇ´Ó Web ´´½¨µÄ
+                // new task created from web ä¸å­˜åœ¨ï¼Œåˆ™è¯´æ˜ä»»åŠ¡å¯¹è±¡æ˜¯ä» Web åˆ›å»ºçš„
                 if (name == null) {
                     Log.w(TAG, "the note seems to be an empty one");
                     return null;
                 }
-                //´´½¨Ò»¸öĞÂµÄ JSON ¶ÔÏó²¢·µ»Ø
+                //åˆ›å»ºä¸€ä¸ªæ–°çš„ JSON å¯¹è±¡å¹¶è¿”å›
                 JSONObject js = new JSONObject();
                 JSONObject note = new JSONObject();
                 JSONArray dataArray = new JSONArray();
@@ -224,7 +224,7 @@ public class Task extends Node {
                 js.put(GTaskStringUtils.META_HEAD_NOTE, note);
                 return js;
             } else {
-                // synced task Èç¹û´æÔÚ mMetaInfo JSON ¶ÔÏó£¬ÔòËµÃ÷ÈÎÎñ¶ÔÏóÊÇÍ¬²½
+                // synced task å¦‚æœå­˜åœ¨ mMetaInfo JSON å¯¹è±¡ï¼Œåˆ™è¯´æ˜ä»»åŠ¡å¯¹è±¡æ˜¯åŒæ­¥
                 JSONObject note = mMetaInfo.getJSONObject(GTaskStringUtils.META_HEAD_NOTE);
                 JSONArray dataArray = mMetaInfo.getJSONArray(GTaskStringUtils.META_HEAD_DATA);
 
@@ -235,7 +235,7 @@ public class Task extends Node {
                         break;
                     }
                 }
-                //´ÓÏÖÓĞµÄ JSON ¶ÔÏóÖĞ¸üĞÂÊı¾İ²¢·µ»Ø¡£
+                //ä»ç°æœ‰çš„ JSON å¯¹è±¡ä¸­æ›´æ–°æ•°æ®å¹¶è¿”å›ã€‚
                 note.put(NoteColumns.TYPE, Notes.TYPE_NOTE);
                 return mMetaInfo;
             }
@@ -244,18 +244,18 @@ public class Task extends Node {
             e.printStackTrace();
             return null;
         }
-    }//½«ÈÎÎñ¶ÔÏóµÄÄÚÈİ×ª»»Îª±¾µØ JSON ¶ÔÏó
+    }//å°†ä»»åŠ¡å¯¹è±¡çš„å†…å®¹è½¬æ¢ä¸ºæœ¬åœ° JSON å¯¹è±¡
 
     public void setMetaInfo(MetaData metaData) {
-        if (metaData != null && metaData.getNotes() != null) {//¼ì²émetaDataÊÇ·ñÎª¿ÕÇÒÆänotesÊôĞÔÊÇ·ñ´æÔÚ
+        if (metaData != null && metaData.getNotes() != null) {//æ£€æŸ¥metaDataæ˜¯å¦ä¸ºç©ºä¸”å…¶noteså±æ€§æ˜¯å¦å­˜åœ¨
             try {
-                mMetaInfo = new JSONObject(metaData.getNotes());//³¢ÊÔ½«notesÊôĞÔµÄÖµ×ª»»ÎªÒ»¸öJSONObject¶ÔÏó£¬²¢½«Æä¸³Öµ¸øÀà³ÉÔ±±äÁ¿mMetaInfo
+                mMetaInfo = new JSONObject(metaData.getNotes());//å°è¯•å°†noteså±æ€§çš„å€¼è½¬æ¢ä¸ºä¸€ä¸ªJSONObjectå¯¹è±¡ï¼Œå¹¶å°†å…¶èµ‹å€¼ç»™ç±»æˆå‘˜å˜é‡mMetaInfo
             } catch (JSONException e) {
                 Log.w(TAG, e.toString());
-                mMetaInfo = null;//¼ÇÂ¼Ò»¸ö¾¯¸æÈÕÖ¾£¬²¢½«mMetaInfoÉèÖÃÎªnull
+                mMetaInfo = null;//è®°å½•ä¸€ä¸ªè­¦å‘Šæ—¥å¿—ï¼Œå¹¶å°†mMetaInfoè®¾ç½®ä¸ºnull
             }
         }
-    }//¼ì²émetaData
+    }//æ£€æŸ¥metaData
 
     public int getSyncAction(Cursor c) {
         try {
@@ -284,22 +284,22 @@ public class Task extends Node {
                 // there is no local update
                 if (c.getLong(SqlNote.SYNC_ID_COLUMN) == getLastModified()) {
                     // no update both side
-                    return SYNC_ACTION_NONE;//±¾µØºÍÔ¶³Ì¶¼Ã»ÓĞ¸üĞÂ£¬ÎŞĞèÍ¬²½
+                    return SYNC_ACTION_NONE;//æœ¬åœ°å’Œè¿œç¨‹éƒ½æ²¡æœ‰æ›´æ–°ï¼Œæ— éœ€åŒæ­¥
                 } else {
                     // apply remote to local
-                    return SYNC_ACTION_UPDATE_LOCAL;//Ô¶³ÌÓĞ¸üĞÂ£¬ĞèÒª½«Ô¶³ÌµÄ¸üĞÂÍ¬²½µ½±¾µØ
+                    return SYNC_ACTION_UPDATE_LOCAL;//è¿œç¨‹æœ‰æ›´æ–°ï¼Œéœ€è¦å°†è¿œç¨‹çš„æ›´æ–°åŒæ­¥åˆ°æœ¬åœ°
                 }
             } else {
                 // validate gtask id
                 if (!c.getString(SqlNote.GTASK_ID_COLUMN).equals(getGid())) {
                     Log.e(TAG, "gtask id doesn't match");
-                    return SYNC_ACTION_ERROR;//·¢ÉúÒì³£
+                    return SYNC_ACTION_ERROR;//å‘ç”Ÿå¼‚å¸¸
                 }
                 if (c.getLong(SqlNote.SYNC_ID_COLUMN) == getLastModified()) {
                     // local modification only
-                    return SYNC_ACTION_UPDATE_REMOTE;//±¾µØÓĞ¸üĞÂ£¬ĞèÒª½«±¾µØµÄ¸üĞÂÍ¬²½µ½Ô¶³Ì
+                    return SYNC_ACTION_UPDATE_REMOTE;//æœ¬åœ°æœ‰æ›´æ–°ï¼Œéœ€è¦å°†æœ¬åœ°çš„æ›´æ–°åŒæ­¥åˆ°è¿œç¨‹
                 } else {
-                    return SYNC_ACTION_UPDATE_CONFLICT;//±¾µØºÍÔ¶³Ì¶¼ÓĞ¸üĞÂ£¬ĞèÒª½â¾ö³åÍ»²¢Í¬²½¸üĞÂ
+                    return SYNC_ACTION_UPDATE_CONFLICT;//æœ¬åœ°å’Œè¿œç¨‹éƒ½æœ‰æ›´æ–°ï¼Œéœ€è¦è§£å†³å†²çªå¹¶åŒæ­¥æ›´æ–°
                 }
             }
         } catch (Exception e) {
@@ -308,43 +308,43 @@ public class Task extends Node {
         }
 
         return SYNC_ACTION_ERROR;
-    }//»ñÈ¡Í¬²½²Ù×÷
+    }//è·å–åŒæ­¥æ“ä½œ
 
     public boolean isWorthSaving() {
         return mMetaInfo != null || (getName() != null && getName().trim().length() > 0)
                 || (getNotes() != null && getNotes().trim().length() > 0);
-    }//ÅĞ¶ÏÈÎÎñÊÇ·ñÖµµÃ±£´æ
+    }//åˆ¤æ–­ä»»åŠ¡æ˜¯å¦å€¼å¾—ä¿å­˜
 
     public void setCompleted(boolean completed) {
         this.mCompleted = completed;
-    }//// ÉèÖÃÈÎÎñµÄÍê³É×´Ì¬
+    }//// è®¾ç½®ä»»åŠ¡çš„å®ŒæˆçŠ¶æ€
 
     public void setNotes(String notes) {
         this.mNotes = notes;
-    }//½«note¸³Öµ¸ø¸Ã´ı°ìÊÂÏîµÄmNotes³ÉÔ±±äÁ¿
+    }//å°†noteèµ‹å€¼ç»™è¯¥å¾…åŠäº‹é¡¹çš„mNotesæˆå‘˜å˜é‡
 
     public void setPriorSibling(Task priorSibling) {
         this.mPriorSibling = priorSibling;
-    }//¸ø¶¨Ò»¸öTask¶ÔÏó×÷Îª²ÎÊı£¬ÉèÖÃËü×÷Îªµ±Ç°Task¶ÔÏóµÄÇ°Ò»¸öĞÖµÜ½Úµã
+    }//ç»™å®šä¸€ä¸ªTaskå¯¹è±¡ä½œä¸ºå‚æ•°ï¼Œè®¾ç½®å®ƒä½œä¸ºå½“å‰Taskå¯¹è±¡çš„å‰ä¸€ä¸ªå…„å¼ŸèŠ‚ç‚¹
 
     public void setParent(TaskList parent) {
         this.mParent = parent;
-    }//ÉèÖÃµ±Ç°TaskµÄ¸¸ÈÎÎñÁĞ±í
+    }//è®¾ç½®å½“å‰Taskçš„çˆ¶ä»»åŠ¡åˆ—è¡¨
 
     public boolean getCompleted() {
         return this.mCompleted;
-    }//»ñÈ¡ÈÎÎñµÄ¡°Íê³É¡±×´Ì¬
+    }//è·å–ä»»åŠ¡çš„â€œå®Œæˆâ€çŠ¶æ€
 
     public String getNotes() {
         return this.mNotes;
-    }//»ñÈ¡ÈÎÎñµÄ±¸×¢ĞÅÏ¢
+    }//è·å–ä»»åŠ¡çš„å¤‡æ³¨ä¿¡æ¯
 
     public Task getPriorSibling() {
         return this.mPriorSibling;
-    }//·µ»Øµ±Ç°ÈÎÎñµÄÇ°Ò»¸öĞÖµÜÈÎÎñ
+    }//è¿”å›å½“å‰ä»»åŠ¡çš„å‰ä¸€ä¸ªå…„å¼Ÿä»»åŠ¡
 
     public TaskList getParent() {
         return this.mParent;
-    }//±íÊ¾µ±Ç°ÈÎÎñµÄ¸¸ÈÎÎñÁĞ±í¡£¸Ã·½·¨²¢Î´½ÓÊÕÈÎºÎ²ÎÊı
+    }//è¡¨ç¤ºå½“å‰ä»»åŠ¡çš„çˆ¶ä»»åŠ¡åˆ—è¡¨ã€‚è¯¥æ–¹æ³•å¹¶æœªæ¥æ”¶ä»»ä½•å‚æ•°
 
-}//Í¬²½ÈÎÎñ£¬½«´´½¨¡¢¸üĞÂºÍÍ¬²½¶¯×÷°ü×°³ÉJSON¶ÔÏó£¬ÓÃ±¾µØºÍÔ¶³ÌµÄJSON¶Ô½áµãÄÚÈİ½øĞĞÉèÖÃ»ñÈ¡Í¬²½ĞÅÏ¢£¬½øĞĞ±¾µØºÍÔ¶³ÌµÄÍ¬²½
+}//åŒæ­¥ä»»åŠ¡ï¼Œå°†åˆ›å»ºã€æ›´æ–°å’ŒåŒæ­¥åŠ¨ä½œåŒ…è£…æˆJSONå¯¹è±¡ï¼Œç”¨æœ¬åœ°å’Œè¿œç¨‹çš„JSONå¯¹ç»“ç‚¹å†…å®¹è¿›è¡Œè®¾ç½®è·å–åŒæ­¥ä¿¡æ¯ï¼Œè¿›è¡Œæœ¬åœ°å’Œè¿œç¨‹çš„åŒæ­¥
