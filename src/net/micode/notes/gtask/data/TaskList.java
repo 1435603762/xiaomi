@@ -34,35 +34,35 @@ public class TaskList extends Node {
     private static final String TAG = TaskList.class.getSimpleName();
     
     private int mIndex;
-    //±íÊ¾TaskListÔÚÆä¸¸½ÚµãÏÂµÄË÷ÒıÎ»ÖÃ¡£
+    //è¡¨ç¤ºTaskListåœ¨å…¶çˆ¶èŠ‚ç‚¹ä¸‹çš„ç´¢å¼•ä½ç½®ã€‚
     private ArrayList<Task> mChildren;
-    //±íÊ¾TaskListµÄ×ÓÈÎÎñÁĞ±í
+    //è¡¨ç¤ºTaskListçš„å­ä»»åŠ¡åˆ—è¡¨
     public TaskList() {
         super();
         mChildren = new ArrayList<Task>();
         mIndex = 1;
-    }//³õÊ¼»¯
+    }//åˆå§‹åŒ–
 
     public JSONObject getCreateAction(int actionId) {
         JSONObject js = new JSONObject();
 
         try {
-            // action_type ²Ù×÷ÀàĞÍÎª "create"
+            // action_type æ“ä½œç±»å‹ä¸º "create"
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_TYPE,
                     GTaskStringUtils.GTASK_JSON_ACTION_TYPE_CREATE);
 
-            // action_id ÓÉ²ÎÊı actionId Ö¸¶¨µÄ²Ù×÷ ID
+            // action_id ç”±å‚æ•° actionId æŒ‡å®šçš„æ“ä½œ ID
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_ID, actionId);
 
-            // index Google ÈÎÎñÇåµ¥µÄË÷ÒıÖµ
+            // index Google ä»»åŠ¡æ¸…å•çš„ç´¢å¼•å€¼
             js.put(GTaskStringUtils.GTASK_JSON_INDEX, mIndex);
 
-            // entity_delta ÊµÌåÊı¾İµÄ JSON ¶ÔÏó
+            // entity_delta å®ä½“æ•°æ®çš„ JSON å¯¹è±¡
             JSONObject entity = new JSONObject();
-            entity.put(GTaskStringUtils.GTASK_JSON_NAME, getName());//Google ÈÎÎñÇåµ¥µÄÃû³Æ
-            entity.put(GTaskStringUtils.GTASK_JSON_CREATOR_ID, "null");//´´½¨¸ÃÇåµ¥µÄÓÃ»§µÄ ID
+            entity.put(GTaskStringUtils.GTASK_JSON_NAME, getName());//Google ä»»åŠ¡æ¸…å•çš„åç§°
+            entity.put(GTaskStringUtils.GTASK_JSON_CREATOR_ID, "null");//åˆ›å»ºè¯¥æ¸…å•çš„ç”¨æˆ·çš„ ID
             entity.put(GTaskStringUtils.GTASK_JSON_ENTITY_TYPE,
-                    GTaskStringUtils.GTASK_JSON_TYPE_GROUP);//ÈÎÎñÇåµ¥
+                    GTaskStringUtils.GTASK_JSON_TYPE_GROUP);//ä»»åŠ¡æ¸…å•
             js.put(GTaskStringUtils.GTASK_JSON_ENTITY_DELTA, entity);
 
         } catch (JSONException e) {
@@ -72,26 +72,26 @@ public class TaskList extends Node {
         }
 
         return js;
-    }//´´½¨GoogleÈÎÎñÇåµ¥µÄJSON¶ÔÏó
+    }//åˆ›å»ºGoogleä»»åŠ¡æ¸…å•çš„JSONå¯¹è±¡
 
     public JSONObject getUpdateAction(int actionId) {
         JSONObject js = new JSONObject();
 
         try {
-            // action_type ¶¯×÷ÀàĞÍ£¬´Ë´¦Îª¡°update¡±±íÊ¾¸üĞÂ²Ù×÷
+            // action_type åŠ¨ä½œç±»å‹ï¼Œæ­¤å¤„ä¸ºâ€œupdateâ€è¡¨ç¤ºæ›´æ–°æ“ä½œ
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_TYPE,
                     GTaskStringUtils.GTASK_JSON_ACTION_TYPE_UPDATE);
 
-            // action_id ¶¯×÷ID£¬ÓÃÓÚ±êÊ¶´Ë´Î²Ù×÷
+            // action_id åŠ¨ä½œIDï¼Œç”¨äºæ ‡è¯†æ­¤æ¬¡æ“ä½œ
             js.put(GTaskStringUtils.GTASK_JSON_ACTION_ID, actionId);
              
-            // id ÈÎÎñÁĞ±íID
+            // id ä»»åŠ¡åˆ—è¡¨ID
             js.put(GTaskStringUtils.GTASK_JSON_ID, getGid());
 
-            // entity_delta ÊµÌåÔöÁ¿£¬¼´¸üĞÂµÄ¾ßÌåÄÚÈİ
+            // entity_delta å®ä½“å¢é‡ï¼Œå³æ›´æ–°çš„å…·ä½“å†…å®¹
             JSONObject entity = new JSONObject();
-            entity.put(GTaskStringUtils.GTASK_JSON_NAME, getName());//name£ºÈÎÎñÁĞ±íÃû³Æ
-            entity.put(GTaskStringUtils.GTASK_JSON_DELETED, getDeleted());//deleted£ºÊÇ·ñÒÑÉ¾³ı
+            entity.put(GTaskStringUtils.GTASK_JSON_NAME, getName());//nameï¼šä»»åŠ¡åˆ—è¡¨åç§°
+            entity.put(GTaskStringUtils.GTASK_JSON_DELETED, getDeleted());//deletedï¼šæ˜¯å¦å·²åˆ é™¤
             js.put(GTaskStringUtils.GTASK_JSON_ENTITY_DELTA, entity);
 
         } catch (JSONException e) {
@@ -101,7 +101,7 @@ public class TaskList extends Node {
         }
 
         return js;
-    }//Éú³ÉÒ»¸öGoogleÈÎÎñÁĞ±íµÄ¸üĞÂ²Ù×÷µÄJSON¶ÔÏó
+    }//ç”Ÿæˆä¸€ä¸ªGoogleä»»åŠ¡åˆ—è¡¨çš„æ›´æ–°æ“ä½œçš„JSONå¯¹è±¡
 
     public void setContentByRemoteJSON(JSONObject js) {
         if (js != null) {
@@ -120,19 +120,19 @@ public class TaskList extends Node {
                 if (js.has(GTaskStringUtils.GTASK_JSON_NAME)) {
                     setName(js.getString(GTaskStringUtils.GTASK_JSON_NAME));
                 }
-                //³¢ÊÔ½âÎöÆäid¡¢last_modifiedºÍnameÊôĞÔ,ÏàÓ¦µØÉèÖÃÈÎÎñÁĞ±íµÄgid¡¢lastModifiedºÍnameÊôĞÔ
+                //å°è¯•è§£æå…¶idã€last_modifiedå’Œnameå±æ€§,ç›¸åº”åœ°è®¾ç½®ä»»åŠ¡åˆ—è¡¨çš„gidã€lastModifiedå’Œnameå±æ€§
             } catch (JSONException e) {
                 Log.e(TAG, e.toString());
                 e.printStackTrace();
                 throw new ActionFailureException("fail to get tasklist content from jsonobject");
-            }//·¢ÉúÒì³££¬Ôò¼ÇÂ¼´íÎóÈÕÖ¾²¢Å×³öActionFailureExceptionÒì³£
+            }//å‘ç”Ÿå¼‚å¸¸ï¼Œåˆ™è®°å½•é”™è¯¯æ—¥å¿—å¹¶æŠ›å‡ºActionFailureExceptionå¼‚å¸¸
         }
-    }//½âÎö´Ó·şÎñÆ÷·µ»ØµÄJSON¶ÔÏó²¢ÉèÖÃÏàÓ¦µÄÈÎÎñÁĞ±íÊôĞÔ
+    }//è§£æä»æœåŠ¡å™¨è¿”å›çš„JSONå¯¹è±¡å¹¶è®¾ç½®ç›¸åº”çš„ä»»åŠ¡åˆ—è¡¨å±æ€§
 
     public void setContentByLocalJSON(JSONObject js) {
         if (js == null || !js.has(GTaskStringUtils.META_HEAD_NOTE)) {
             Log.w(TAG, "setContentByLocalJSON: nothing is avaiable");
-        }//ÅĞ¶Ï´«ÈëµÄ JSON ÊÇ·ñÎª¿Õ»òÕßÊÇ·ñ°üº¬Í·²¿ĞÅÏ¢£¬Èç¹û²»°üº¬Ôò´òÓ¡¾¯¸æÈÕÖ¾²¢·µ»Ø
+        }//åˆ¤æ–­ä¼ å…¥çš„ JSON æ˜¯å¦ä¸ºç©ºæˆ–è€…æ˜¯å¦åŒ…å«å¤´éƒ¨ä¿¡æ¯ï¼Œå¦‚æœä¸åŒ…å«åˆ™æ‰“å°è­¦å‘Šæ—¥å¿—å¹¶è¿”å›
 
         try {
             JSONObject folder = js.getJSONObject(GTaskStringUtils.META_HEAD_NOTE);
@@ -140,7 +140,7 @@ public class TaskList extends Node {
             if (folder.getInt(NoteColumns.TYPE) == Notes.TYPE_FOLDER) {
                 String name = folder.getString(NoteColumns.SNIPPET);
                 setName(GTaskStringUtils.MIUI_FOLDER_PREFFIX + name);
-            }//ÊÇÎÄ¼ş¼ĞÔò½«ÎÄ¼ş¼ĞµÄÃû³ÆÉèÖÃÎªµ±Ç°±Ê¼Ç±¾µÄÃû³Æ£¬Ãû³ÆÇ°¼ÓÉÏÇ°×º
+            }//æ˜¯æ–‡ä»¶å¤¹åˆ™å°†æ–‡ä»¶å¤¹çš„åç§°è®¾ç½®ä¸ºå½“å‰ç¬”è®°æœ¬çš„åç§°ï¼Œåç§°å‰åŠ ä¸Šå‰ç¼€
             else if (folder.getInt(NoteColumns.TYPE) == Notes.TYPE_SYSTEM) {
                 if (folder.getLong(NoteColumns.ID) == Notes.ID_ROOT_FOLDER)
                     setName(GTaskStringUtils.MIUI_FOLDER_PREFFIX + GTaskStringUtils.FOLDER_DEFAULT);
@@ -149,31 +149,31 @@ public class TaskList extends Node {
                             + GTaskStringUtils.FOLDER_CALL_NOTE);
                 else
                     Log.e(TAG, "invalid system folder");
-            }//ÊÇÏµÍ³ÀàĞÍµÄ±Ê¼Ç£¬Ôò¸ù¾İ±Ê¼ÇµÄ ID ÅĞ¶ÏÊÇÄ¬ÈÏÎÄ¼ş¼Ğ»¹ÊÇÍ¨»°¼ÇÂ¼ÎÄ¼ş¼Ğ£¬²¢ÉèÖÃÏàÓ¦µÄÃû³Æ
+            }//æ˜¯ç³»ç»Ÿç±»å‹çš„ç¬”è®°ï¼Œåˆ™æ ¹æ®ç¬”è®°çš„ ID åˆ¤æ–­æ˜¯é»˜è®¤æ–‡ä»¶å¤¹è¿˜æ˜¯é€šè¯è®°å½•æ–‡ä»¶å¤¹ï¼Œå¹¶è®¾ç½®ç›¸åº”çš„åç§°
             else {
                 Log.e(TAG, "error type");
-            }//²»ÊÇÎÄ¼ş¼ĞÒ²²»ÊÇÏµÍ³ÀàĞÍ£¬Ôò´òÓ¡´íÎóÈÕÖ¾
+            }//ä¸æ˜¯æ–‡ä»¶å¤¹ä¹Ÿä¸æ˜¯ç³»ç»Ÿç±»å‹ï¼Œåˆ™æ‰“å°é”™è¯¯æ—¥å¿—
         } catch (JSONException e) {
             Log.e(TAG, e.toString());
             e.printStackTrace();
         }
-    }//½âÎöÆäÖĞµÄ±Ê¼ÇĞÅÏ¢£¬²¢ÉèÖÃµ½µ±Ç°¶ÔÏóÖĞ
+    }//è§£æå…¶ä¸­çš„ç¬”è®°ä¿¡æ¯ï¼Œå¹¶è®¾ç½®åˆ°å½“å‰å¯¹è±¡ä¸­
 
     public JSONObject getLocalJSONFromContent() {
         try {
             JSONObject js = new JSONObject();
             JSONObject folder = new JSONObject();
 
-            String folderName = getName();//»ñÈ¡TaskList¶ÔÏóµÄÃû³Æ
-            if (getName().startsWith(GTaskStringUtils.MIUI_FOLDER_PREFFIX))//ÅĞ¶ÏÊÇ·ñÒÔÖ¸¶¨Ç°×ºGTaskStringUtils.MIUI_FOLDER_PREFFIX¿ªÍ·
+            String folderName = getName();//è·å–TaskListå¯¹è±¡çš„åç§°
+            if (getName().startsWith(GTaskStringUtils.MIUI_FOLDER_PREFFIX))//åˆ¤æ–­æ˜¯å¦ä»¥æŒ‡å®šå‰ç¼€GTaskStringUtils.MIUI_FOLDER_PREFFIXå¼€å¤´
                 folderName = folderName.substring(GTaskStringUtils.MIUI_FOLDER_PREFFIX.length(),
-                        folderName.length());//ÊÇ£¬Ôò½«Ç°×º½ØÈ¥£¬µÃµ½ÕæÕıµÄÃû³Æ
+                        folderName.length());//æ˜¯ï¼Œåˆ™å°†å‰ç¼€æˆªå»ï¼Œå¾—åˆ°çœŸæ­£çš„åç§°
             folder.put(NoteColumns.SNIPPET, folderName);
-            if (folderName.equals(GTaskStringUtils.FOLDER_DEFAULT)//Ãû³ÆÎªÄ¬ÈÏÃû³Æ
+            if (folderName.equals(GTaskStringUtils.FOLDER_DEFAULT)//åç§°ä¸ºé»˜è®¤åç§°
                     || folderName.equals(GTaskStringUtils.FOLDER_CALL_NOTE))
-                folder.put(NoteColumns.TYPE, Notes.TYPE_SYSTEM);//ÖÃfolder¶ÔÏóµÄÀàĞÍÎªNotes.TYPE_SYSTEM
-            else//ÎªÀ´µç¼ÇÊÂ±¾Ãû³Æ
-                folder.put(NoteColumns.TYPE, Notes.TYPE_FOLDER);//ÉèÖÃfolder¶ÔÏóµÄÀàĞÍÎªNotes.TYPE_FOLDER
+                folder.put(NoteColumns.TYPE, Notes.TYPE_SYSTEM);//ç½®folderå¯¹è±¡çš„ç±»å‹ä¸ºNotes.TYPE_SYSTEM
+            else//ä¸ºæ¥ç”µè®°äº‹æœ¬åç§°
+                folder.put(NoteColumns.TYPE, Notes.TYPE_FOLDER);//è®¾ç½®folderå¯¹è±¡çš„ç±»å‹ä¸ºNotes.TYPE_FOLDER
 
             js.put(GTaskStringUtils.META_HEAD_NOTE, folder);
 
@@ -182,31 +182,31 @@ public class TaskList extends Node {
             Log.e(TAG, e.toString());
             e.printStackTrace();
             return null;
-        }//ÓĞÒì³£·¢Éú£¬»á´òÓ¡´íÎóÈÕÖ¾²¢·µ»Ønull
-    }//½«TaskList¶ÔÏóµÄÃû³Æ×ª»»³É±¾µØJSON¸ñÊ½
+        }//æœ‰å¼‚å¸¸å‘ç”Ÿï¼Œä¼šæ‰“å°é”™è¯¯æ—¥å¿—å¹¶è¿”å›null
+    }//å°†TaskListå¯¹è±¡çš„åç§°è½¬æ¢æˆæœ¬åœ°JSONæ ¼å¼
 
     public int getSyncAction(Cursor c) {
         try {
             if (c.getInt(SqlNote.LOCAL_MODIFIED_COLUMN) == 0) {//
-                // there is no local update ±íÊ¾Ã»ÓĞ±¾µØ¸üĞÂ
+                // there is no local update è¡¨ç¤ºæ²¡æœ‰æœ¬åœ°æ›´æ–°
                 if (c.getLong(SqlNote.SYNC_ID_COLUMN) == getLastModified()) {
-                    // no update both side Ã»ÓĞÈÎºÎ¸üĞÂ
+                    // no update both side æ²¡æœ‰ä»»ä½•æ›´æ–°
                     return SYNC_ACTION_NONE;
                 } else {
-                    // apply remote to local ±íÊ¾ĞèÒª½«Ô¶³ÌµÄ¸üĞÂÓ¦ÓÃµ½±¾µØ
+                    // apply remote to local è¡¨ç¤ºéœ€è¦å°†è¿œç¨‹çš„æ›´æ–°åº”ç”¨åˆ°æœ¬åœ°
                     return SYNC_ACTION_UPDATE_LOCAL;
                 }
             } else {
-                // validate gtask id ÑéÖ¤ GTASK_ID_COLUMN ÁĞµÄÖµÊÇ·ñµÈÓÚ getGid() ·½·¨·µ»ØµÄÖµ
+                // validate gtask id éªŒè¯ GTASK_ID_COLUMN åˆ—çš„å€¼æ˜¯å¦ç­‰äº getGid() æ–¹æ³•è¿”å›çš„å€¼
                 if (!c.getString(SqlNote.GTASK_ID_COLUMN).equals(getGid())) {
                     Log.e(TAG, "gtask id doesn't match");
-                    return SYNC_ACTION_ERROR;//Òì³£
+                    return SYNC_ACTION_ERROR;//å¼‚å¸¸
                 }
                 if (c.getLong(SqlNote.SYNC_ID_COLUMN) == getLastModified()) {
-                    // local modification only ±íÊ¾Ö»ÓĞ±¾µØÓĞĞŞ¸Ä£¬ĞèÒª½«ÆäÍ¬²½µ½Ô¶³Ì
+                    // local modification only è¡¨ç¤ºåªæœ‰æœ¬åœ°æœ‰ä¿®æ”¹ï¼Œéœ€è¦å°†å…¶åŒæ­¥åˆ°è¿œç¨‹
                     return SYNC_ACTION_UPDATE_REMOTE;
                 } else {
-                    // for folder conflicts, just apply local modification ĞèÒªÓÅÏÈÓ¦ÓÃ±¾µØµÄĞŞ¸Ä
+                    // for folder conflicts, just apply local modification éœ€è¦ä¼˜å…ˆåº”ç”¨æœ¬åœ°çš„ä¿®æ”¹
                     return SYNC_ACTION_UPDATE_REMOTE;
                 }
             }
@@ -216,37 +216,37 @@ public class TaskList extends Node {
         }
 
         return SYNC_ACTION_ERROR;
-    }//¼ì²éÁË Cursor ¶ÔÏóÖĞµÄÄ³Ğ©ÊôĞÔÖµ£¬ÒÔÈ·¶¨ĞèÒªÖ´ĞĞÄÄĞ©Í¬²½²Ù×÷
+    }//æ£€æŸ¥äº† Cursor å¯¹è±¡ä¸­çš„æŸäº›å±æ€§å€¼ï¼Œä»¥ç¡®å®šéœ€è¦æ‰§è¡Œå“ªäº›åŒæ­¥æ“ä½œ
 
     public int getChildTaskCount() {
         return mChildren.size();
-    }//·µ»ØË½ÓĞ±äÁ¿ mChildren ÁĞ±íµÄ´óĞ¡¡£
+    }//è¿”å›ç§æœ‰å˜é‡ mChildren åˆ—è¡¨çš„å¤§å°ã€‚
 
     public boolean addChildTask(Task task) {
         boolean ret = false;
-        if (task != null && !mChildren.contains(task)) {//ÅĞ¶Ï´«ÈëµÄÈÎÎñ¶ÔÏó task ÊÇ·ñÎª¿Õ£¬ÒÔ¼°µ±Ç°¶ÔÏóµÄ×ÓÈÎÎñÁĞ±í mChildren ÊÇ·ñÒÑ°üº¬¸ÃÈÎÎñ
-            ret = mChildren.add(task);//½«¸ÃÈÎÎñÌí¼Óµ½ mChildren ÁĞ±íÖĞ
+        if (task != null && !mChildren.contains(task)) {//åˆ¤æ–­ä¼ å…¥çš„ä»»åŠ¡å¯¹è±¡ task æ˜¯å¦ä¸ºç©ºï¼Œä»¥åŠå½“å‰å¯¹è±¡çš„å­ä»»åŠ¡åˆ—è¡¨ mChildren æ˜¯å¦å·²åŒ…å«è¯¥ä»»åŠ¡
+            ret = mChildren.add(task);//å°†è¯¥ä»»åŠ¡æ·»åŠ åˆ° mChildren åˆ—è¡¨ä¸­
             if (ret) {
                 // need to set prior sibling and parent
                 task.setPriorSibling(mChildren.isEmpty() ? null : mChildren
                         .get(mChildren.size() - 1));
                 task.setParent(this);
-            }//ÈôÌí¼Ó³É¹¦£¬ÔòĞèÒª¶Ô¸ÃÈÎÎñ½øĞĞÉèÖÃÆäÇ°Ò»¸öÍ¬¼¶ÈÎÎñºÍ¸¸¼¶ÈÎÎñ¡£
+            }//è‹¥æ·»åŠ æˆåŠŸï¼Œåˆ™éœ€è¦å¯¹è¯¥ä»»åŠ¡è¿›è¡Œè®¾ç½®å…¶å‰ä¸€ä¸ªåŒçº§ä»»åŠ¡å’Œçˆ¶çº§ä»»åŠ¡ã€‚
         }
         return ret;
-    }//Ïòµ±Ç°¶ÔÏóÌí¼ÓÒ»¸ö×ÓÈÎÎñµÄ²Ù×÷ÊÇ·ñ³É¹¦
+    }//å‘å½“å‰å¯¹è±¡æ·»åŠ ä¸€ä¸ªå­ä»»åŠ¡çš„æ“ä½œæ˜¯å¦æˆåŠŸ
 
     public boolean addChildTask(Task task, int index) {
         if (index < 0 || index > mChildren.size()) {
             Log.e(TAG, "add child task: invalid index");
             return false;
-        }//ÅĞ¶Ï´«ÈëµÄ index ÊÇ·ñÔÚºÏ·¨·¶Î§ÄÚ
+        }//åˆ¤æ–­ä¼ å…¥çš„ index æ˜¯å¦åœ¨åˆæ³•èŒƒå›´å†…
 
-        int pos = mChildren.indexOf(task);//²éÕÒÈÎÎñÁĞ±íÖĞÊÇ·ñÒÑ°üº¬´«ÈëµÄÈÎÎñ¶ÔÏó task
-        if (task != null && pos == -1) {//Î´°üº¬¸ÃÈÎÎñ
-            mChildren.add(index, task);//½«Æä²åÈëµ½ index Ö¸¶¨µÄÎ»ÖÃ
+        int pos = mChildren.indexOf(task);//æŸ¥æ‰¾ä»»åŠ¡åˆ—è¡¨ä¸­æ˜¯å¦å·²åŒ…å«ä¼ å…¥çš„ä»»åŠ¡å¯¹è±¡ task
+        if (task != null && pos == -1) {//æœªåŒ…å«è¯¥ä»»åŠ¡
+            mChildren.add(index, task);//å°†å…¶æ’å…¥åˆ° index æŒ‡å®šçš„ä½ç½®
 
-            // update the task list ¸üĞÂ²åÈëÈÎÎñµÄÇ°Ò»¸öÍ¬¼¶ÈÎÎñºÍºóÒ»¸öÍ¬¼¶ÈÎÎñµÄÒıÓÃ
+            // update the task list æ›´æ–°æ’å…¥ä»»åŠ¡çš„å‰ä¸€ä¸ªåŒçº§ä»»åŠ¡å’Œåä¸€ä¸ªåŒçº§ä»»åŠ¡çš„å¼•ç”¨
             Task preTask = null;
             Task afterTask = null;
             if (index != 0)
@@ -257,89 +257,89 @@ public class TaskList extends Node {
             task.setPriorSibling(preTask);
             if (afterTask != null)
                 afterTask.setPriorSibling(task);
-        }//·µ»Ø true ±íÊ¾Ìí¼ÓÈÎÎñ³É¹¦£¬·ñÔò·µ»Ø false¡£
+        }//è¿”å› true è¡¨ç¤ºæ·»åŠ ä»»åŠ¡æˆåŠŸï¼Œå¦åˆ™è¿”å› falseã€‚
 
         return true;
-    }//±íÊ¾Ïòµ±Ç°¶ÔÏóµÄ×ÓÈÎÎñÁĞ±íÖ¸¶¨Î»ÖÃÌí¼ÓÒ»¸öÈÎÎñµÄ²Ù×÷ÊÇ·ñ³É¹¦
+    }//è¡¨ç¤ºå‘å½“å‰å¯¹è±¡çš„å­ä»»åŠ¡åˆ—è¡¨æŒ‡å®šä½ç½®æ·»åŠ ä¸€ä¸ªä»»åŠ¡çš„æ“ä½œæ˜¯å¦æˆåŠŸ
 
     public boolean removeChildTask(Task task) {
         boolean ret = false;
-        int index = mChildren.indexOf(task);//²éÕÒ´«ÈëµÄÈÎÎñ¶ÔÏó task ÔÚ×ÓÈÎÎñÁĞ±íÖĞµÄË÷ÒıÎ»ÖÃ
-        if (index != -1) {//¸ÃÈÎÎñÔÚ×ÓÈÎÎñÁĞ±íÖĞ´æÔÚ
-            ret = mChildren.remove(task);//ÒÆ³ı¸ÃÈÎÎñ
+        int index = mChildren.indexOf(task);//æŸ¥æ‰¾ä¼ å…¥çš„ä»»åŠ¡å¯¹è±¡ task åœ¨å­ä»»åŠ¡åˆ—è¡¨ä¸­çš„ç´¢å¼•ä½ç½®
+        if (index != -1) {//è¯¥ä»»åŠ¡åœ¨å­ä»»åŠ¡åˆ—è¡¨ä¸­å­˜åœ¨
+            ret = mChildren.remove(task);//ç§»é™¤è¯¥ä»»åŠ¡
 
             if (ret) {
-                // reset prior sibling and parent ¸üĞÂ±»ÒÆ³ıÈÎÎñµÄÇ°Ò»¸öÍ¬¼¶ÈÎÎñºÍ¸¸¼¶ÈÎÎñµÄÒıÓÃ
+                // reset prior sibling and parent æ›´æ–°è¢«ç§»é™¤ä»»åŠ¡çš„å‰ä¸€ä¸ªåŒçº§ä»»åŠ¡å’Œçˆ¶çº§ä»»åŠ¡çš„å¼•ç”¨
                 task.setPriorSibling(null);
                 task.setParent(null);
 
                 // update the task list
-                if (index != mChildren.size()) {//¸ÃÈÎÎñ²»ÊÇ×ÓÈÎÎñÁĞ±íµÄ×îºóÒ»¸öÈÎÎñ
+                if (index != mChildren.size()) {//è¯¥ä»»åŠ¡ä¸æ˜¯å­ä»»åŠ¡åˆ—è¡¨çš„æœ€åä¸€ä¸ªä»»åŠ¡
                     mChildren.get(index).setPriorSibling(
                             index == 0 ? null : mChildren.get(index - 1));
-                }//¸üĞÂÆäºóÒ»¸öÍ¬¼¶ÈÎÎñµÄÇ°Ò»¸öÍ¬¼¶ÈÎÎñµÄÒıÓÃ
+                }//æ›´æ–°å…¶åä¸€ä¸ªåŒçº§ä»»åŠ¡çš„å‰ä¸€ä¸ªåŒçº§ä»»åŠ¡çš„å¼•ç”¨
             }
         }
         return ret;
-    }//±íÊ¾´Óµ±Ç°¶ÔÏóµÄ×ÓÈÎÎñÁĞ±íÖĞÒÆ³ıÒ»¸öÖ¸¶¨ÈÎÎñµÄ²Ù×÷ÊÇ·ñ³É¹¦
+    }//è¡¨ç¤ºä»å½“å‰å¯¹è±¡çš„å­ä»»åŠ¡åˆ—è¡¨ä¸­ç§»é™¤ä¸€ä¸ªæŒ‡å®šä»»åŠ¡çš„æ“ä½œæ˜¯å¦æˆåŠŸ
 
     public boolean moveChildTask(Task task, int index) {
 
         if (index < 0 || index >= mChildren.size()) {
             Log.e(TAG, "move child task: invalid index");
             return false;
-        }//ÅĞ¶Ï´«ÈëµÄ index ÊÇ·ñÔÚºÏ·¨·¶Î§ÄÚ
+        }//åˆ¤æ–­ä¼ å…¥çš„ index æ˜¯å¦åœ¨åˆæ³•èŒƒå›´å†…
 
         int pos = mChildren.indexOf(task);
         if (pos == -1) {
             Log.e(TAG, "move child task: the task should in the list");
             return false;
-        }//²éÕÒ×ÓÈÎÎñÁĞ±íÖĞÊÇ·ñ°üº¬´«ÈëµÄÈÎÎñ¶ÔÏó task
+        }//æŸ¥æ‰¾å­ä»»åŠ¡åˆ—è¡¨ä¸­æ˜¯å¦åŒ…å«ä¼ å…¥çš„ä»»åŠ¡å¯¹è±¡ task
 
-        if (pos == index)//ÈÎÎñÔÚ×ÓÈÎÎñÁĞ±íÖĞµÄÎ»ÖÃÒÑ¾­ÊÇ index
+        if (pos == index)//ä»»åŠ¡åœ¨å­ä»»åŠ¡åˆ—è¡¨ä¸­çš„ä½ç½®å·²ç»æ˜¯ index
             return true;
         return (removeChildTask(task) && addChildTask(task, index));
-    }//±íÊ¾½«µ±Ç°¶ÔÏó×ÓÈÎÎñÁĞ±íÖĞµÄÒ»¸öÈÎÎñÒÆ¶¯µ½Ö¸¶¨Î»ÖÃµÄ²Ù×÷ÊÇ·ñ³É¹¦
+    }//è¡¨ç¤ºå°†å½“å‰å¯¹è±¡å­ä»»åŠ¡åˆ—è¡¨ä¸­çš„ä¸€ä¸ªä»»åŠ¡ç§»åŠ¨åˆ°æŒ‡å®šä½ç½®çš„æ“ä½œæ˜¯å¦æˆåŠŸ
 
     public Task findChildTaskByGid(String gid) {
-        for (int i = 0; i < mChildren.size(); i++) {//±éÀúµ±Ç°¶ÔÏó×ÓÈÎÎñÁĞ±íÖĞµÄËùÓĞÈÎÎñ
+        for (int i = 0; i < mChildren.size(); i++) {//éå†å½“å‰å¯¹è±¡å­ä»»åŠ¡åˆ—è¡¨ä¸­çš„æ‰€æœ‰ä»»åŠ¡
             Task t = mChildren.get(i);
-            if (t.getGid().equals(gid)) {//ÈÎÎñµÄ gid ÊôĞÔÓë´«ÈëµÄ gid ÏàÍ¬
+            if (t.getGid().equals(gid)) {//ä»»åŠ¡çš„ gid å±æ€§ä¸ä¼ å…¥çš„ gid ç›¸åŒ
                 return t;
             }
         }
         return null;
-    }//¸ù¾İ´«ÈëµÄ gid ÔÚµ±Ç°¶ÔÏóµÄ×ÓÈÎÎñÁĞ±íÖĞ²éÕÒ²¢·µ»ØÏàÓ¦µÄÈÎÎñ¶ÔÏó
+    }//æ ¹æ®ä¼ å…¥çš„ gid åœ¨å½“å‰å¯¹è±¡çš„å­ä»»åŠ¡åˆ—è¡¨ä¸­æŸ¥æ‰¾å¹¶è¿”å›ç›¸åº”çš„ä»»åŠ¡å¯¹è±¡
 
     public int getChildTaskIndex(Task task) {
         return mChildren.indexOf(task);
-    }//±íÊ¾µ±Ç°¶ÔÏó×ÓÈÎÎñÁĞ±íÖĞ´«ÈëÈÎÎñ¶ÔÏó task µÄË÷ÒıÎ»ÖÃ
+    }//è¡¨ç¤ºå½“å‰å¯¹è±¡å­ä»»åŠ¡åˆ—è¡¨ä¸­ä¼ å…¥ä»»åŠ¡å¯¹è±¡ task çš„ç´¢å¼•ä½ç½®
 
     public Task getChildTaskByIndex(int index) {
-        if (index < 0 || index >= mChildren.size()) {//ÅĞ¶Ï´«ÈëµÄ index ÊÇ·ñÔÚºÏ·¨·¶Î§ÄÚ
+        if (index < 0 || index >= mChildren.size()) {//åˆ¤æ–­ä¼ å…¥çš„ index æ˜¯å¦åœ¨åˆæ³•èŒƒå›´å†…
             Log.e(TAG, "getTaskByIndex: invalid index");
             return null;
         }
         return mChildren.get(index);
-    }//±íÊ¾µ±Ç°¶ÔÏó×ÓÈÎÎñÁĞ±íÖĞÖ¸¶¨Ë÷ÒıÎ»ÖÃ index µÄÈÎÎñ¶ÔÏó
+    }//è¡¨ç¤ºå½“å‰å¯¹è±¡å­ä»»åŠ¡åˆ—è¡¨ä¸­æŒ‡å®šç´¢å¼•ä½ç½® index çš„ä»»åŠ¡å¯¹è±¡
 
     public Task getChilTaskByGid(String gid) {
-        for (Task task : mChildren) {//±éÀú
-            if (task.getGid().equals(gid))//ÈôÈÎÎñµÄ gid ÊôĞÔÓë´«ÈëµÄ gid ÏàÍ¬£¬Ôò·µ»Ø¸ÃÈÎÎñ¶ÔÏó
+        for (Task task : mChildren) {//éå†
+            if (task.getGid().equals(gid))//è‹¥ä»»åŠ¡çš„ gid å±æ€§ä¸ä¼ å…¥çš„ gid ç›¸åŒï¼Œåˆ™è¿”å›è¯¥ä»»åŠ¡å¯¹è±¡
                 return task;
         }
         return null;
-    }//±íÊ¾¸ù¾İ´«ÈëµÄ gid ÔÚµ±Ç°¶ÔÏóµÄ×ÓÈÎÎñÁĞ±íÖĞ²éÕÒ²¢·µ»ØÏàÓ¦µÄÈÎÎñ¶ÔÏó
+    }//è¡¨ç¤ºæ ¹æ®ä¼ å…¥çš„ gid åœ¨å½“å‰å¯¹è±¡çš„å­ä»»åŠ¡åˆ—è¡¨ä¸­æŸ¥æ‰¾å¹¶è¿”å›ç›¸åº”çš„ä»»åŠ¡å¯¹è±¡
 
     public ArrayList<Task> getChildTaskList() {
         return this.mChildren;
-    }//±íÊ¾µ±Ç°¶ÔÏóµÄ×ÓÈÎÎñÁĞ±í
+    }//è¡¨ç¤ºå½“å‰å¯¹è±¡çš„å­ä»»åŠ¡åˆ—è¡¨
 
     public void setIndex(int index) {
         this.mIndex = index;
-    }//ÉèÖÃµ±Ç°ÈÎÎñµÄË÷ÒıÎ»ÖÃ
+    }//è®¾ç½®å½“å‰ä»»åŠ¡çš„ç´¢å¼•ä½ç½®
 
     public int getIndex() {
         return this.mIndex;
-    }//·µ»Øµ±Ç°ÈÎÎñÔÚÆä¸¸ÈÎÎñÖĞµÄË÷ÒıÎ»ÖÃ
+    }//è¿”å›å½“å‰ä»»åŠ¡åœ¨å…¶çˆ¶ä»»åŠ¡ä¸­çš„ç´¢å¼•ä½ç½®
 }
