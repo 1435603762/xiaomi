@@ -25,14 +25,14 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-// ContactÀàÓÃÓÚ²éÑ¯ÁªÏµÈËÐÅÏ¢
+// Contactï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½Ñ¯ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ï¢
 public class Contact {
-    // ÓÃÓÚ»º´æÒÑ²éÑ¯µ½µÄÁªÏµÈËÃû³Æ
+    // ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private static HashMap<String, String> sContactCache;
-    // ÈÕÖ¾±êÇ©
+    // ï¿½ï¿½Ö¾ï¿½ï¿½Ç©
     private static final String TAG = "Contact";
 
-    // ²éÑ¯ÁªÏµÈËµÄÑ¡ÔñÌõ¼þ
+    // ï¿½ï¿½Ñ¯ï¿½ï¿½Ïµï¿½Ëµï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private static final String CALLER_ID_SELECTION = "PHONE_NUMBERS_EQUAL(" + Phone.NUMBER
     + ",?) AND " + Data.MIMETYPE + "='" + Phone.CONTENT_ITEM_TYPE + "'"
     + " AND " + Data.RAW_CONTACT_ID + " IN "
@@ -40,22 +40,22 @@ public class Contact {
             + " FROM phone_lookup"
             + " WHERE min_match = '+')";
 
-    // ¸ù¾Ýµç»°ºÅÂë»ñÈ¡ÁªÏµÈËÃû³ÆµÄ·½·¨
+    // ï¿½ï¿½ï¿½Ýµç»°ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ÆµÄ·ï¿½ï¿½ï¿½
     public static String getContact(Context context, String phoneNumber) {
-        // Èç¹û»º´æÎª¿Õ£¬Ôò´´½¨Ò»¸öÐÂµÄHashMap
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½ï¿½ò´´½ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½HashMap
         if(sContactCache == null) {
             sContactCache = new HashMap<String, String>();
         }
 
-        // Èç¹û»º´æÖÐÒÑ´æÔÚ¸Ãµç»°ºÅÂëµÄÁªÏµÈË£¬ÔòÖ±½Ó·µ»ØÆäÃû³Æ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½Ú¸Ãµç»°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ë£ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if(sContactCache.containsKey(phoneNumber)) {
             return sContactCache.get(phoneNumber);
         }
 
-        // Ìæ»»CALLER_ID_SELECTIONÖÐµÄ"+"ÎªphoneNumberµÄ×îÐ¡Æ¥ÅäÐÎÊ½
+        // ï¿½æ»»CALLER_ID_SELECTIONï¿½Ðµï¿½"+"ÎªphoneNumberï¿½ï¿½ï¿½ï¿½Ð¡Æ¥ï¿½ï¿½ï¿½ï¿½Ê½
         String selection = CALLER_ID_SELECTION.replace("+",
                 PhoneNumberUtils.toCallerIDMinMatch(phoneNumber));
-        // ²éÑ¯ÁªÏµÈËÐÅÏ¢
+        // ï¿½ï¿½Ñ¯ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ï¢
         Cursor cursor = context.getContentResolver().query(
                 Data.CONTENT_URI,
                 new String [] { Phone.DISPLAY_NAME },
@@ -63,27 +63,27 @@ public class Contact {
                 new String[] { phoneNumber },
                 null);
 
-        // Èç¹û²éÑ¯½á¹û²»Îª¿ÕÇÒÓÐ½á¹û£¬Ôò»ñÈ¡ÁªÏµÈËÃû³Æ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (cursor != null && cursor.moveToFirst()) {
             try {
                 String name = cursor.getString(0);
-                // ½«ÁªÏµÈËÃû³Æ´æÈë»º´æ
+                // ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ë»ºï¿½ï¿½
                 sContactCache.put(phoneNumber, name);
-                // ·µ»ØÁªÏµÈËÃû³Æ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 return name;
             } catch (IndexOutOfBoundsException e) {
-                // »ñÈ¡ÁªÏµÈËÃû³Æ³ö´í£¬¼ÇÂ¼ÈÕÖ¾²¢·µ»Ønull
+                // ï¿½ï¿½È¡ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½null
                 Log.e(TAG, " Cursor get string error " + e.toString());
                 return null;
             } finally {
-                // ¹Ø±ÕÓÎ±ê
+                // ï¿½Ø±ï¿½ï¿½Î±ï¿½
                 cursor.close();
             }
         } else {
-            // ²éÑ¯½á¹ûÎª¿Õ£¬¼ÇÂ¼ÈÕÖ¾²¢·µ»Ønull
+            // ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½null
             Log.d(TAG, "No contact matched with number:" + phoneNumber);
             return null;
         }
     }
 }
-/*Õâ¸öÀàÖ÷ÒªÓÃÓÚ¸ù¾Ýµç»°ºÅÂë²éÑ¯ÁªÏµÈËÃû³Æ¡£ÔÚ²éÑ¯¹ý³ÌÖÐ£¬»á½«²éÑ¯µ½µÄÁªÏµÈËÃû³Æ»º´æÔÚÒ»¸öHashMapÖÐ£¬ÒÔ±ãÓÚÏÂ´Î²éÑ¯Ê±Ö±½Ó´Ó»º´æÖÐ»ñÈ¡¡£*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ú¸ï¿½ï¿½Ýµç»°ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ú²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½á½«ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½HashMapï¿½Ð£ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Â´Î²ï¿½Ñ¯Ê±Ö±ï¿½Ó´Ó»ï¿½ï¿½ï¿½ï¿½Ð»ï¿½È¡ï¿½ï¿½*/
