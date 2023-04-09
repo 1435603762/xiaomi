@@ -77,12 +77,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
-//主界面，一进入就是这个界面
+//主界面
 /**
  * @author k
  *
  */
-public class NotesListActivity extends Activity implements OnClickListener, OnItemLongClickListener {   //没有用特定的标签加注释。。。感觉没有什么用
+public class NotesListActivity extends Activity implements OnClickListener, OnItemLongClickListener {
     private static final int FOLDER_NOTE_LIST_QUERY_TOKEN = 0;
 
     private static final int FOLDER_LIST_QUERY_TOKEN      = 1;
@@ -141,7 +141,9 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
 
     @Override
     // 创建类
-    protected void onCreate(final Bundle savedInstanceState) {  //需要是final类型   根据程序上下文环境，Java关键字final有“这是无法改变的”或者“终态的”含义，它可以修饰非抽象类、非抽象类成员方法和变量。你可能出于两种理解而需要阻止改变：设计或效率。
+    protected void onCreate(final Bundle savedInstanceState) {
+        //需要是final类型   根据程序上下文环境，Java关键字final有“这是无法改变的”或者“终态的”含义，
+        // 它可以修饰非抽象类、非抽象类成员方法和变量。
         // final类不能被继承，没有子类，final类中的方法默认是final的。
         //final方法不能被子类的方法覆盖，但可以被继承。
         //final成员变量表示常量，只能被赋值一次，赋值后值不再改变。
@@ -170,7 +172,7 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
     }
 
     private void setAppInfoFromRawRes() {
-        // Android平台给我们提供了一个SharedPreferences类，它是一个轻量级的存储类，特别适合用于保存软件配置参数。
+        // Android平台给提供了一个SharedPreferences类，它是一个轻量级的存储类，特别适合用于保存软件配置参数。
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         if (!sp.getBoolean(PREFERENCE_ADD_INTRODUCTION, false)) {
             StringBuilder sb = new StringBuilder();
@@ -182,7 +184,7 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
                 if (in != null) {
                     InputStreamReader isr = new InputStreamReader(in);
                     BufferedReader br = new BufferedReader(isr);
-                    char [] buf = new char[1024];  // 自行定义的数值，使用者不知道有什么意义
+                    char [] buf = new char[1024];  // 自行定义的数值
                     int len = 0;
                     while ((len = br.read(buf)) > 0) {
                         sb.append(buf, 0, len);
