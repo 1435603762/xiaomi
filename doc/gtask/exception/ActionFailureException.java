@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package net.micode.notes.gtask.exception;
+package net.micode.notes.gtask.exception; // 定义了一个异常类，位于 net.micode.notes.gtask.exception 包下
 
-public class ActionFailureException extends RuntimeException {
-    private static final long serialVersionUID = 4425249765923293627L;
+public class ActionFailureException extends RuntimeException { // 定义了一个继承自 RuntimeException 的异常类
 
-    public ActionFailureException() {
-        super();
+    private static final long serialVersionUID = 4425249765923293627L; // 定义一个序列化 ID，用于版本控制
+
+    public ActionFailureException() { // 无参构造函数
+        super(); // 调用父类 RuntimeException 的无参构造函数
     }
 
-    public ActionFailureException(String paramString) {
-        super(paramString);
+    public ActionFailureException(String paramString) { // 带参数构造函数，传入异常信息
+        super(paramString); // 调用父类 RuntimeException 的带参数构造函数，将异常信息传给父类
     }
 
-    public ActionFailureException(String paramString, Throwable paramThrowable) {
-        super(paramString, paramThrowable);
+    public ActionFailureException(String paramString, Throwable paramThrowable) { // 带参数构造函数，传入异常信息和原始异常
+        super(paramString, paramThrowable); // 调用父类 RuntimeException 的带参数构造函数，将异常信息和原始异常都传给父类
     }
 }
