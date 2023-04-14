@@ -32,4 +32,8 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 }
 //这是实现alarm这个功能最接近用户层的包，基于上面的两个包，
+<<<<<<< remotes/origin/lzj_branch
 //作用还需要深究但是对于setClass和addFlags的
+=======
+//作用还需要深究但是对于setClass和addFlags的
+>>>>>>> local
